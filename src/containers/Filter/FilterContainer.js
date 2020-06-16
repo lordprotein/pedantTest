@@ -5,9 +5,9 @@ import { PriceList } from '../../components/PriceList/PriceList';
 
 class FilterContainer extends Component {
     state = {
-        // typeFields: false,
         currentSettings: [],
-        isHotUpdate: false
+        isHotUpdate: false,
+        isCheckboxListOpen: false
     }
 
 
@@ -27,8 +27,7 @@ class FilterContainer extends Component {
 
 
     findForTitles = (value) => {
-        const { currentSettings } = this.state;
-        const { priceList, updatePriceList, action } = this.props;
+        const { priceList} = this.props;
 
         value = value.toLowerCase();
 
@@ -52,8 +51,7 @@ class FilterContainer extends Component {
 
 
     handleSelectionList = (value) => {
-        const { priceList, updatePriceList, action } = this.props,
-            { isHotUpdate } = this.state;
+        const { priceList } = this.props;
 
         if (value === 'all') {
             this.changeSettingsList(value, 'selectionList');
@@ -61,7 +59,6 @@ class FilterContainer extends Component {
         }
 
         const res = priceList.filter(({ category }) => category === value);
-        console.log(isHotUpdate)
 
         this.updatePriceList(res);
 
@@ -87,19 +84,53 @@ class FilterContainer extends Component {
         this.changeSettingsList(value, 'checkbox');
     }
 
+    setDisplayCheckboxList = (value) => {
+        this.setState(({ isCheckboxListOpen }) => {
+            return { isCheckboxListOpen: !isCheckboxListOpen }
+        });
+
+        this.changeSettingsList(value, 'checkboxList');
+    }
+
+
+    handleCheckboxList = (elem) => {
+        const { currentSettings } = this.state;
+        const { action } = this.props;
+        const newListSettings = [...currentSettings];
+
+        const numElem = currentSettings.findIndex(elem => elem.type === 'checkboxList');
+
+        const numSubElem = currentSettings[numElem].list.findIndex(item => item.id === elem.id);
+
+        const status = newListSettings[numElem].list[numSubElem].value;
+        newListSettings[numElem].list[numSubElem].value = !status;
+
+
+        this.setState({ currentSettings: newListSettings });
+        action(newListSettings);
+    }
+
+
+    handleSubmit = () => {
+        const { action } = this.props;
+
+        action(this.state.currentSettings);
+    }
+
 
     render = () => {
-        const { currentSettings, isHotUpdate } = this.state;
+        const { currentSettings, isCheckboxListOpen } = this.state;
 
         return (
             <Filter
                 currentSettings={currentSettings}
                 findForTitles={this.findForTitles}
                 handleSelectionList={this.handleSelectionList}
-                checkbox={{
-                    handle: this.handleCheckbox,
-                    value: isHotUpdate
-                }}
+                handleCheckbox={this.handleCheckbox}
+                isDisplayCheckboxList={isCheckboxListOpen}
+                setDisplayCheckboxList={this.setDisplayCheckboxList}
+                handleCheckboxList={this.handleCheckboxList}
+                handleSubmit={this.handleSubmit}
             />
         );
     }

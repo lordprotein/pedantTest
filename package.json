@@ -9,7 +9,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@ant-design/react-native": "^3.3.0",
+    "@react-native-community/cameraroll": "^2.0.0",
     "@react-native-community/checkbox": "^0.4.2",
+    "@react-native-community/picker": "^1.6.3",
+    "@react-native-community/segmented-control": "^2.0.0",
+    "@react-native-community/slider": "^3.0.0",
+    "@react-native-community/viewpager": "^4.0.1",
+    "antd": "^3.26.16",
     "antd-mobile": "^2.3.3",
     "expo": "~37.0.3",
     "react": "~16.9.0",

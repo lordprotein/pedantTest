@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import PriceListContainer from '../PriceList/PriceListContainer';
 import FilterContainer from '../Filter/FilterContainer';
 import { priceListConst } from '../../constants/priceListConst';
@@ -56,20 +56,19 @@ class AppContainer extends Component {
                 value: false,
                 id: 6,
                 list: [
-                    
                     {
-                        title: categories[0].translate,
-                        value: categories[0].title,
+                        title: 'Первый',
+                        value: false,
                         id: 7
                     },
                     {
-                        title: categories[0].translate,
-                        value: categories[0].title,
+                        title: 'Второй',
+                        value: false,
                         id: 8
                     },
                     {
-                        title: categories[0].translate,
-                        value: categories[0].title,
+                        title: 'Третий',
+                        value: false,
                         id: 9
                     },
                 ]
@@ -85,21 +84,22 @@ class AppContainer extends Component {
 
     render = () => {
         const { priceList, filteredPriceList, filterSettings } = this.state;
-
-        console.log(this.state.filterSettings)
         
         return (
             <SafeAreaView>
-                <View>
-                    <PriceListContainer list={filteredPriceList ? filteredPriceList : priceList} />
+                <ScrollView>
 
                     <FilterContainer
                         settings={filterSettings}
-                        action={(filterSettings) => this.setState({filterSettings})}
+                        action={(filterSettings) => this.setState({ filterSettings })}
                         priceList={priceList}
                         updatePriceList={filteredPriceList => this.setState({ filteredPriceList })}
                     />
-                </View>
+
+                    <PriceListContainer list={filteredPriceList ? filteredPriceList : priceList} />
+
+
+                </ScrollView>
             </SafeAreaView>
 
         );

@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, TextInput, Text, StyleSheet, Button } from 'react-native';
+import { View, TextInput, Text, StyleSheet } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import RNPickerSelect from 'react-native-picker-select';
+import { Button } from '@ant-design/react-native';
+
 
 export const Filter = (props) => {
-    // const isActiveFindContent = handleText.value ? true : false;
+    const { handleSubmit } = props;
 
     return (
         <View style={styles.container}>
@@ -12,18 +14,21 @@ export const Filter = (props) => {
             {filterField(props)}
 
             <Button
-                title='Найти'
-            />
+                type='ghost'
+                onPress={handleSubmit}
+            >
+                Найти
+            </Button>
         </View>
     );
 }
 
 
 const filterField = (props) => {
-    const { currentSettings, findForTitles, handleSelectionList, checkbox } = props;
+    const { currentSettings, findForTitles, handleSelectionList, handleCheckbox, isDisplayCheckboxList, setDisplayCheckboxList, handleCheckboxList } = props;
 
     return currentSettings.map((elem, key) => {
-        const { type, label, list } = elem;
+        const { type, label, list, value } = elem;
 
         switch (type) {
             case 'inputText': {
@@ -59,14 +64,40 @@ const filterField = (props) => {
                         <Text>{label}</Text>
 
                         <CheckBox
-                            value={checkbox.value}
-                            onValueChange={checkbox.handle}
+                            value={value}
+                            onValueChange={handleCheckbox}
                         />
                     </View>
                 );
             }
             case 'checkboxList': {
+                return (
+                    <View key={key}>
+                        <Text>{label}</Text>
 
+                        <CheckBox
+                            value={value}
+                            onValueChange={setDisplayCheckboxList}
+                        />
+
+                        {isDisplayCheckboxList && (
+                            <View>
+                                {list.map((item, key) => {
+
+                                    return (
+                                        <View key={key}>
+                                            <Text>{item.title}</Text>
+                                            <CheckBox
+                                                value={item.value}
+                                                onValueChange={() => handleCheckboxList(item)}
+                                            />
+                                        </View>
+                                    )
+                                })}
+                            </View>
+                        )}
+                    </View>
+                );
             }
 
             default: return;
