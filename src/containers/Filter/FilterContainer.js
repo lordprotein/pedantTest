@@ -52,8 +52,8 @@ class FilterContainer extends Component {
 
 
     handleSelectionList = (value) => {
-        const { priceList, updatePriceList, action } = this.props;
-        const { isHotUpdate } = this.state;
+        const { priceList, updatePriceList, action } = this.props,
+            { isHotUpdate } = this.state;
 
         if (value === 'all') {
             this.changeSettingsList(value, 'selectionList');
@@ -62,6 +62,7 @@ class FilterContainer extends Component {
 
         const res = priceList.filter(({ category }) => category === value);
         console.log(isHotUpdate)
+
         this.updatePriceList(res);
 
         this.changeSettingsList(value, 'selectionList');
@@ -69,12 +70,11 @@ class FilterContainer extends Component {
 
 
     changeSettingsList = (value, type) => {
-        const { currentSettings } = this.state;
-        const { action } = this.props;
+        const { currentSettings } = this.state,
+            { action } = this.props,
+            newSettings = [...currentSettings],
+            num = newSettings.findIndex(elem => elem.type === type);
 
-        const newSettings = [...currentSettings];
-
-        const num = newSettings.findIndex(elem => elem.type === type);
         newSettings[num].value = value;
 
         action(newSettings);
