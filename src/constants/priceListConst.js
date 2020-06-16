@@ -2,7 +2,7 @@ export const priceListConst = [
     {
         id: 1,
         title: 'Коврик игровой',
-        content: 'Коврик',
+        content: 'ЯяЯ',
         category: 'electronics',
         status: '',
     },

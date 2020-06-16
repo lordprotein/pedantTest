@@ -1,17 +1,104 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView } from 'react-native';
 import PriceListContainer from '../PriceList/PriceListContainer';
-import { Filter } from '../../components/Filter/Filter';
+import FilterContainer from '../Filter/FilterContainer';
+import { priceListConst } from '../../constants/priceListConst';
+import { categories } from '../../constants/categories';
 
 
 class AppContainer extends Component {
+    state = {
+        priceList: [],
+        filteredPriceList: false,
+        filterSettings: [
+            {
+                type: 'inputText',
+                label: 'Поиск по тексту',
+                value: false,
+                id: 1,
+            },
+            {
+                type: 'selectionList',
+                label: 'Категории',
+                value: false,
+                list: [
+                    {
+                        label: 'Все',
+                        value: 'all',
+                        id: 12434
+                    },
+                    {
+                        label: categories[0].translate,
+                        value: categories[0].title,
+                        id: 2
+                    },
+                    {
+                        label: categories[1].translate,
+                        value: categories[1].title,
+                        id: 3
+                    },
+                    {
+                        label: categories[2].translate,
+                        value: categories[2].title,
+                        id: 4
+                    },
+                ]
+            },
+            {
+                type: 'checkbox',
+                label: 'Горячий поиск',
+                value: false,
+                id: 5
+            },
+            {
+                type: 'checkboxList',
+                label: 'Доп. настройки',
+                value: false,
+                id: 6,
+                list: [
+                    
+                    {
+                        title: categories[0].translate,
+                        value: categories[0].title,
+                        id: 7
+                    },
+                    {
+                        title: categories[0].translate,
+                        value: categories[0].title,
+                        id: 8
+                    },
+                    {
+                        title: categories[0].translate,
+                        value: categories[0].title,
+                        id: 9
+                    },
+                ]
+            }
+        ]
+    }
+
+    componentDidMount = () => {
+        //симуляция для fetch запроса
+        this.setState({ priceList: priceListConst })
+    }
+
 
     render = () => {
+        const { priceList, filteredPriceList, filterSettings } = this.state;
+
+        console.log(this.state.filterSettings)
+        
         return (
             <SafeAreaView>
                 <View>
-                    <PriceListContainer />
-                    <Filter />
+                    <PriceListContainer list={filteredPriceList ? filteredPriceList : priceList} />
+
+                    <FilterContainer
+                        settings={filterSettings}
+                        action={(filterSettings) => this.setState({filterSettings})}
+                        priceList={priceList}
+                        updatePriceList={filteredPriceList => this.setState({ filteredPriceList })}
+                    />
                 </View>
             </SafeAreaView>
 

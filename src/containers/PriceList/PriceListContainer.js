@@ -5,18 +5,10 @@ import { View } from 'react-native';
 
 
 class PriceListContainer extends Component {
-    state = {
-        list: []
-    }
-
-    componentDidMount = () => {
-        //симуляция для fetch запроса
-        this.setState({ list: priceListConst })
-    }
 
     render() {
-        const { list } = this.state;
-        
+        const { list } = this.props;
+
         return (
             <PriceList list={list} />
         );
