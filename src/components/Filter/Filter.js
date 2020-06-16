@@ -38,7 +38,7 @@ const filterField = (props) => {
 
             case 'selectionList': {
                 return (
-                    <View>
+                    <View key={key}>
                         <Text>{label}</Text>
 
                         <RNPickerSelect
@@ -48,7 +48,6 @@ const filterField = (props) => {
                             items={list.map(elem => {
                                 return { ...elem, key: elem.id }
                             })}
-                            key={key}
                         />
                     </View>
                 );
