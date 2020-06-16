@@ -7,7 +7,6 @@ class FilterContainer extends Component {
     state = {
         currentSettings: [],
         isHotUpdate: false,
-        isCheckboxListOpen: false
     }
 
 
@@ -27,7 +26,7 @@ class FilterContainer extends Component {
 
 
     findForTitles = (value) => {
-        const { priceList} = this.props;
+        const { priceList } = this.props;
 
         value = value.toLowerCase();
 
@@ -85,10 +84,6 @@ class FilterContainer extends Component {
     }
 
     setDisplayCheckboxList = (value) => {
-        this.setState(({ isCheckboxListOpen }) => {
-            return { isCheckboxListOpen: !isCheckboxListOpen }
-        });
-
         this.changeSettingsList(value, 'checkboxList');
     }
 
@@ -119,7 +114,7 @@ class FilterContainer extends Component {
 
 
     render = () => {
-        const { currentSettings, isCheckboxListOpen } = this.state;
+        const { currentSettings } = this.state;
 
         return (
             <Filter
@@ -127,7 +122,6 @@ class FilterContainer extends Component {
                 findForTitles={this.findForTitles}
                 handleSelectionList={this.handleSelectionList}
                 handleCheckbox={this.handleCheckbox}
-                isDisplayCheckboxList={isCheckboxListOpen}
                 setDisplayCheckboxList={this.setDisplayCheckboxList}
                 handleCheckboxList={this.handleCheckboxList}
                 handleSubmit={this.handleSubmit}

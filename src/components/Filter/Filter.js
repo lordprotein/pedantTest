@@ -80,10 +80,9 @@ const filterField = (props) => {
                             onValueChange={setDisplayCheckboxList}
                         />
 
-                        {isDisplayCheckboxList && (
+                        {value && (
                             <View>
                                 {list.map((item, key) => {
-
                                     return (
                                         <View key={key}>
                                             <Text>{item.title}</Text>
