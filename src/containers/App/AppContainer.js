@@ -84,10 +84,11 @@ class AppContainer extends Component {
 
     render = () => {
         const { priceList, filteredPriceList, filterSettings } = this.state;
-        
+
         return (
             <SafeAreaView>
                 <ScrollView>
+                    <PriceListContainer list={filteredPriceList ? filteredPriceList : priceList} />
 
                     <FilterContainer
                         settings={filterSettings}
@@ -95,10 +96,6 @@ class AppContainer extends Component {
                         priceList={priceList}
                         updatePriceList={filteredPriceList => this.setState({ filteredPriceList })}
                     />
-
-                    <PriceListContainer list={filteredPriceList ? filteredPriceList : priceList} />
-
-
                 </ScrollView>
             </SafeAreaView>
 

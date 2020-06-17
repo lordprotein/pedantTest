@@ -25,7 +25,7 @@ export const Filter = (props) => {
 
 
 const filterField = (props) => {
-    const { currentSettings, findForTitles, handleSelectionList, handleCheckbox, isDisplayCheckboxList, setDisplayCheckboxList, handleCheckboxList } = props;
+    const { currentSettings, findForTitles, handleSelectionList, handleCheckbox, setDisplayCheckboxList, handleCheckboxList } = props;
 
     return currentSettings.map((elem, key) => {
         const { type, label, list, value } = elem;
@@ -70,6 +70,7 @@ const filterField = (props) => {
                     </View>
                 );
             }
+
             case 'checkboxList': {
                 return (
                     <View key={key}>
@@ -107,8 +108,6 @@ const filterField = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        // flexDirection: 'row',
         marginVertical: 30
     },
     picker: {

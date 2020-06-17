@@ -1,21 +1,12 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import PriceItemContainer from '../../containers/PriceList/PriceItem/PriceItemContainer';
 
 
 export const PriceList = ({ list }) => {
     return (
-        <ScrollView style={styles.container}>
+        <View>
             {list.map((item, key) => <PriceItemContainer data={item} key={key} />)}
-        </ScrollView>
+        </View>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        // flex: 0.5,
-        maxHeight: '60%'
-        // marginVertical: 20
-    }
-});

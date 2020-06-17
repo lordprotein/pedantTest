@@ -110,6 +110,7 @@ class FilterContainer extends Component {
         const { action } = this.props;
 
         action(this.state.currentSettings);
+        alert('Настройки отправлены в функцию')
     }
 
 
