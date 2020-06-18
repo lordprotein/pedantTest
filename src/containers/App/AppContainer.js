@@ -4,6 +4,9 @@ import PriceListContainer from '../PriceList/PriceListContainer';
 import FilterContainer from '../Filter/FilterContainer';
 import { priceListConst } from '../../constants/priceListConst';
 import { categories } from '../../constants/categories';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as settingsTypes from '../../actions/settings';
 
 
 class AppContainer extends Component {
@@ -78,18 +81,21 @@ class AppContainer extends Component {
 
     componentDidMount = () => {
         //симуляция для fetch запроса
+        const { setSettingsList } = this.props;
+        setSettingsList([])
         this.setState({ priceList: priceListConst })
     }
 
 
     render = () => {
-        const { priceList, filteredPriceList, filterSettings } = this.state;
+        const { priceList, filteredPriceList, filterSettings, check } = this.state;
+
+        console.log(check)
 
         return (
             <SafeAreaView>
                 <ScrollView>
                     <PriceListContainer list={filteredPriceList ? filteredPriceList : priceList} />
-
                     <FilterContainer
                         settings={filterSettings}
                         action={(filterSettings) => this.setState({ filterSettings })}
@@ -103,4 +109,16 @@ class AppContainer extends Component {
     }
 }
 
-export default AppContainer;
+
+const mapStateToProps = state => {
+    // console.log(state)
+    return { check: state }
+}
+
+const mapDispatchToProps = dispatch => {
+    const { setSettingsList } = bindActionCreators(settingsTypes, dispatch);
+
+    return { setSettingsList };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
