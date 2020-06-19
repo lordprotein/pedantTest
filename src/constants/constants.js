@@ -1,3 +1,4 @@
 export const SET_SETTINGS_LIST = 'SET_SETTINGS_LIST';
 
 export const SET_PRICE_LIST = 'SET_PRICE_LIST';
+export const UPDATE_PRICE_LSIT = 'UPDATE_PRICE_LSIT';

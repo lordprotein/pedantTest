@@ -14,3 +14,10 @@ export function setPriceList(list) {
         list
     }
 }
+
+export function updatePriceList(list) {
+    return {
+        type: constants.UPDATE_PRICE_LSIT,
+        list
+    }
+}

@@ -3,6 +3,7 @@ export const initState = {
         list: []
     },
     price: {
-        list: []
+        origin: [],
+        current: []
     }
 }

@@ -20,12 +20,26 @@ export const reducer = (state = initState, action) => {
         case constants.SET_PRICE_LIST: {
             const { list } = action;
             const { price } = state;
-            console.log(price)
+
             return {
                 ...state,
                 price: {
                     ...price,
-                    list
+                    origin: list,
+                    current: list
+                }
+            }
+        }
+
+        case constants.UPDATE_PRICE_LSIT: {
+            const { list } = action;
+            const { price } = state;
+
+            return {
+                ...state,
+                price: {
+                    ...price,
+                    current: list
                 }
             }
         }

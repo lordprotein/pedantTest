@@ -5,8 +5,11 @@ class SelectorsSettings {
 }
 
 class SelectorsPrice {
-    getList = ({ price }) => {
-        return price.list;
+    getOriginList = ({ price }) => {
+        return price.origin;
+    }
+    getList = ({price}) => {
+        return price.current;
     }
 }
 
