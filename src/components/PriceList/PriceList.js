@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import PriceItemContainer from '../../containers/PriceList/PriceItem/PriceItemContainer';
+import PriceItemContainer from '@containers/PriceList/PriceItem/PriceItemContainer';
 
 
 export const PriceList = ({ list }) => {

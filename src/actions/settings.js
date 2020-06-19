@@ -1,4 +1,4 @@
-import * as types from '../constants/constants';
+import * as types from '@constants/constants';
 
 export const setSettingsList = list => {
     return {
