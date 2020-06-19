@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/actions';
-import { settingsListConst } from '../../constants/settingsListConst';
 import PriceListContainer from '../PriceList/PriceListContainer';
 import FilterContainer from '../Filter/FilterContainer';
 
@@ -11,7 +8,6 @@ import FilterContainer from '../Filter/FilterContainer';
 class AppContainer extends Component {
 
     render = () => {
-
         return (
             <SafeAreaView>
                 <ScrollView>
