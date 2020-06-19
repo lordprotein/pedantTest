@@ -17,6 +17,25 @@ export const reducer = (state = initState, action) => {
             }
         }
 
+        case constants.UPDATE_SETTINGS_LIST: {
+            const { data: { id, value } } = action;
+            const { settings, settings: { list } } = state;
+
+            const editedList = list.map(elem => {
+                if (elem.id === id) elem.value = value;
+
+                return elem;
+            })
+
+            return {
+                ...state,
+                settings: {
+                    ...settings,
+                    list: editedList
+                }
+            }
+        }
+
         case constants.SET_PRICE_LIST: {
             const { list } = action;
             const { price } = state;
@@ -46,5 +65,4 @@ export const reducer = (state = initState, action) => {
 
         default: return state;
     }
-
 }

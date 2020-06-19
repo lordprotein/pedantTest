@@ -8,6 +8,13 @@ export function setSettingsList(list) {
     }
 }
 
+export function updateSettingsList(id, value) {
+    return {
+        type: constants.UPDATE_SETTINGS_LIST,
+        data: { id, value }
+    }
+}
+
 export function setPriceList(list) {
     return {
         type: constants.SET_PRICE_LIST,
