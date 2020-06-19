@@ -50,11 +50,11 @@ const filterField = (props) => {
                             mode='dropdown'
                             onValueChange={handleSelectionList}
                             style={styles.picker}
-                            items={list.map(elem => {
+                            items={list.map((elem, key) => {
                                 return {
                                     label: elem.label,
-                                    value: id,
-                                    key: elem.id
+                                    value: { id },
+                                    key: key
                                 }
                             })}
                         />

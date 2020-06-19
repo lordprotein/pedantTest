@@ -50,7 +50,8 @@ class FilterContainer extends Component {
 
     handleSelectionList = (id, index) => {
         const { priceList, settingsList, updateSettingsList } = this.props;
-
+        // console.log(id)
+        id = id.id;
         return settingsList.find(settingElem => {
             if (settingElem.id === id) {
 
