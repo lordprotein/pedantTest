@@ -155,13 +155,14 @@ class AppContainer extends Component {
 
 
     render = () => {
-        const { priceList, filteredPriceList, filterSettings } = this.state;
+        const { priceList, filteredPriceList, filterSettings, check } = this.state;
+
+        console.log(check)
 
         return (
             <SafeAreaView>
                 <ScrollView>
                     <PriceListContainer list={filteredPriceList ? filteredPriceList : priceList} />
-
                     <FilterContainer
                         settings={filterSettings}
                         action={(filterSettings) => this.setState({ filterSettings })}
