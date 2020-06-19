@@ -1,8 +1,28 @@
-// {
-//     "compilerOptions": {
-//       "baseUrl": ".",
-//       "paths": {
-//         "./src/*": ["./src/*"]
-//       }
-//     }
-//   }
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@component*": [
+                "./component*"
+            ],
+            "@containers*": [
+                "./containers*"
+            ],
+            "@constants*": [
+                "./constants*"
+            ],
+            "@actions*": [
+                "./actions*"
+            ],
+            "@selectors*": [
+                "./selectors*"
+            ],
+            "@reducers*": [
+                "./reducers*"
+            ],
+            "@stores*": [
+                "./stores*"
+            ],
+        }
+    }
+}

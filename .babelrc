@@ -1,0 +1,24 @@
+{
+    "presets": [
+        "babel-preset-expo"
+    ],
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root": [
+                    "./"
+                ],
+                "alias": {
+                    "@components": "./src/components",
+                    "@containers": "./src/containers",
+                    "@constants": "./src/constants",
+                    "@actions": "./src/actions",
+                    "@selectors": "./src/selectors",
+                    "@reducers": "./src/reducers",
+                    "@stores": "./src/stores"
+                }
+            }
+        ]
+    ]
+}
