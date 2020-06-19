@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import PriceListContainer from '../PriceList/PriceListContainer';
-import FilterContainer from '../Filter/FilterContainer';
+import FilterContainer from '@containers/Filter/FilterContainer';
+import PriceListContainer from '@containers/PriceList/PriceListContainer';
 
 
 class AppContainer extends Component {

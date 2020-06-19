@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { PriceList } from '../../components/PriceList/PriceList';
-import { priceListConst } from '../../constants/priceListConst';
 import { connect } from 'react-redux';
-import { selectorsPrice } from '../../selectors/selectors';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/actions';
+import { PriceList } from '@components/PriceList/PriceList';
+import { priceListConst } from '@constants/priceListConst';
+import * as actions from '@actions/actions';
+import { selectorsPrice } from '@selectors/selectors';
 
 
 class PriceListContainer extends Component {
@@ -16,7 +16,7 @@ class PriceListContainer extends Component {
 
     render() {
         const { priceList } = this.props;
-        
+
         return (
             <PriceList list={priceList} />
         );

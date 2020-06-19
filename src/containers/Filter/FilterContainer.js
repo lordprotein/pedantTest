@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Filter } from '../../components/Filter/Filter';
-import { PriceList } from '../../components/PriceList/PriceList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/actions';
-import { selectorsSettings, selectorsPrice } from '../../selectors/selectors';
-import { settingsListConst } from '../../constants/settingsListConst';
+import * as actions from '@actions/actions';
+import { Filter } from '@components/Filter/Filter';
+import { selectorsSettings, selectorsPrice } from '@selectors/selectors';
+import { settingsListConst } from '@constants/settingsListConst';
 
 
 class FilterContainer extends Component {

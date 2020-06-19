@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PriceItem } from '../../../components/PriceList/PriceItem/PriceItem';
+import { PriceItem } from '@components/PriceList/PriceItem/PriceItem';
 
 
 class PriceItemContainer extends Component {
