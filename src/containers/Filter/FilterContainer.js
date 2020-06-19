@@ -1,43 +1,43 @@
 import React, { Component } from 'react';
 import { Filter } from '../../components/Filter/Filter';
 import { PriceList } from '../../components/PriceList/PriceList';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../actions/actions';
+import { selectorsSettings, selectorsPrice } from '../../selectors/selectors';
+import { settingsListConst } from '../../constants/settingsListConst';
 
 
 class FilterContainer extends Component {
     state = {
-        currentSettings: [],
         isHotUpdate: false,
     }
 
 
     componentDidMount = () => {
-        this.filterField();
+        const { setSettingsList } = this.props;
+
+        setSettingsList(settingsListConst);
     }
 
 
-    filterField = () => {
-        const types = ['inputText', 'selectionList', 'checkbox', 'checkboxList'];
-        const { settings } = this.props;
+    findForTitles = (value, id) => {
+        const { priceList, updateSettingsList, updatePriceList, originPriceList } = this.props;
+        const valueLowerCase = value.toLowerCase();
 
-        const res = settings.filter(elem => types.includes(elem.type) === true);
+        if (!value.length) {
+            updateSettingsList(id, value);
+            return updatePriceList(originPriceList);
+        }
 
-        this.setState({ currentSettings: res });
-    }
+        const list = priceList.filter(({ title }) => {
+            const titleLowerCase = title.toLowerCase();
 
-
-    findForTitles = (value) => {
-        const { priceList } = this.props;
-
-        value = value.toLowerCase();
-
-        const res = priceList.filter(({ title }) => {
-            title = title.toLowerCase();
-
-            return title.includes(value) !== false;
+            return titleLowerCase.includes(valueLowerCase);
         })
 
-        this.updatePriceList(res);
-        this.changeSettingsList(value, 'inputText');
+        updateSettingsList(id, value);
+        this.updatePriceList(list)
     }
 
 
@@ -49,77 +49,70 @@ class FilterContainer extends Component {
     }
 
 
-    handleSelectionList = (value) => {
-        const { priceList } = this.props;
+    handleSelectionList = (id, index) => {
+        const { priceList, settingsList, updateSettingsList } = this.props;
 
-        if (value === 'all') {
-            this.changeSettingsList(value, 'selectionList');
-            return this.updatePriceList(priceList);
-        }
+        return settingsList.find(settingElem => {
+            if (settingElem.id === id) {
 
-        const res = priceList.filter(({ category }) => category === value);
+                const currSettingValue = settingElem.list[index - 1].value;
 
-        this.updatePriceList(res);
+                const filteredList = priceList.filter(({ category }) => category === currSettingValue);
 
-        this.changeSettingsList(value, 'selectionList');
+                this.updatePriceList(filteredList);
+                updateSettingsList(id, currSettingValue);
+
+                return settingElem;
+            }
+        })
     }
 
 
-    changeSettingsList = (value, type) => {
-        const { currentSettings } = this.state,
-            { action } = this.props,
-            newSettings = [...currentSettings],
-            num = newSettings.findIndex(elem => elem.type === type);
+    handleCheckbox = (id, value) => {
+        const { updateSettingsList } = this.props;
 
-        newSettings[num].value = value;
+        this.setState(() => { return { isHotUpdate: value } });
 
-        action(newSettings);
-        this.setState({ currentSettings: newSettings })
+        updateSettingsList(id, value);
     }
 
 
-    handleCheckbox = (value) => {
-        this.setState(({ isHotUpdate }) => { return { isHotUpdate: !isHotUpdate } });
-        this.changeSettingsList(value, 'checkbox');
-    }
+    setDisplayCheckboxList = (id, value) => {
+        const { updateSettingsList } = this.props;
 
-    setDisplayCheckboxList = (value) => {
-        this.changeSettingsList(value, 'checkboxList');
+        updateSettingsList(id, value);
     }
 
 
-    handleCheckboxList = (elem) => {
-        const { currentSettings } = this.state;
-        const { action } = this.props;
-        const newListSettings = [...currentSettings];
+    handleCheckboxList = (id, value, itemId) => {
+        const { settingsList, setSettingsList } = this.props;
 
-        const numElem = currentSettings.findIndex(elem => elem.type === 'checkboxList');
+        const newSettings = settingsList.map(settingElem => {
+            if (settingElem.id === id) {
+                const num = settingElem.list.findIndex(elem => elem.id === itemId);
 
-        const numSubElem = currentSettings[numElem].list.findIndex(item => item.id === elem.id);
+                settingElem.list[num].value = value;
+            }
+            return settingElem;
+        })
 
-        const status = newListSettings[numElem].list[numSubElem].value;
-        newListSettings[numElem].list[numSubElem].value = !status;
-
-
-        this.setState({ currentSettings: newListSettings });
-        action(newListSettings);
+        setSettingsList(newSettings);
     }
 
 
     handleSubmit = () => {
-        const { action } = this.props;
+        const { action, settingsList } = this.props;
 
-        action(this.state.currentSettings);
+        action(settingsList);
         alert('Настройки отправлены в функцию')
     }
 
 
     render = () => {
-        const { currentSettings } = this.state;
-
+        const { settingsList } = this.props;
         return (
             <Filter
-                currentSettings={currentSettings}
+                settingsList={settingsList}
                 findForTitles={this.findForTitles}
                 handleSelectionList={this.handleSelectionList}
                 handleCheckbox={this.handleCheckbox}
@@ -131,4 +124,19 @@ class FilterContainer extends Component {
     }
 }
 
-export default FilterContainer;
+
+const mapStateToProps = state => {
+    return {
+        settingsList: selectorsSettings.getList(state),
+        priceList: selectorsPrice.getList(state),
+        originPriceList: selectorsPrice.getOriginList(state),
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    const { updateSettingsList, updatePriceList, setSettingsList } = bindActionCreators(actions, dispatch);
+
+    return { updateSettingsList, updatePriceList, setSettingsList };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterContainer);

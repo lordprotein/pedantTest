@@ -5,15 +5,10 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/actions';
 import { settingsListConst } from '../../constants/settingsListConst';
 import PriceListContainer from '../PriceList/PriceListContainer';
+import FilterContainer from '../Filter/FilterContainer';
 
 
 class AppContainer extends Component {
-
-    componentDidMount = () => {
-        const { setSettingsList, setPriceList } = this.props;
-        setSettingsList(settingsListConst);
-    }
-
 
     render = () => {
 
@@ -21,9 +16,9 @@ class AppContainer extends Component {
             <SafeAreaView>
                 <ScrollView>
                     <PriceListContainer />
-                    {/* <FilterContainer
+                    <FilterContainer
                         action={settings => console.log(settings)}
-                    /> */}
+                    />
                 </ScrollView>
             </SafeAreaView>
 
@@ -33,11 +28,4 @@ class AppContainer extends Component {
 
 
 
-const mapDispatchToProps = dispatch => {
-    const { setSettingsList } = bindActionCreators(actions, dispatch);
-
-    return { setSettingsList }
-}
-
-
-export default connect(null, mapDispatchToProps)(AppContainer);
+export default connect(null, null)(AppContainer);

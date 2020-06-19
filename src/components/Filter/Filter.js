@@ -25,17 +25,17 @@ export const Filter = (props) => {
 
 
 const filterField = (props) => {
-    const { currentSettings, findForTitles, handleSelectionList, handleCheckbox, setDisplayCheckboxList, handleCheckboxList } = props;
+    const { settingsList, findForTitles, handleSelectionList, handleCheckbox, setDisplayCheckboxList, handleCheckboxList } = props;
 
-    return currentSettings.map((elem, key) => {
-        const { type, label, list, value } = elem;
+    return settingsList.map((elem, key) => {
+        const { type, label, list, value, id } = elem;
 
         switch (type) {
             case 'inputText': {
                 return (
                     <TextInput
                         placeholder={label}
-                        onChangeText={findForTitles}
+                        onChangeText={(value) => findForTitles(value, id)}
                         key={key}
                     />
                 );
@@ -51,7 +51,11 @@ const filterField = (props) => {
                             onValueChange={handleSelectionList}
                             style={styles.picker}
                             items={list.map(elem => {
-                                return { ...elem, key: elem.id }
+                                return {
+                                    label: elem.label,
+                                    value: id,
+                                    key: elem.id
+                                }
                             })}
                         />
                     </View>
@@ -65,7 +69,7 @@ const filterField = (props) => {
 
                         <CheckBox
                             value={value}
-                            onValueChange={handleCheckbox}
+                            onValueChange={value => handleCheckbox(id, value)}
                         />
                     </View>
                 );
@@ -78,7 +82,7 @@ const filterField = (props) => {
 
                         <CheckBox
                             value={value}
-                            onValueChange={setDisplayCheckboxList}
+                            onValueChange={value => setDisplayCheckboxList(id, value)}
                         />
 
                         {value && (
@@ -89,7 +93,7 @@ const filterField = (props) => {
                                             <Text>{item.title}</Text>
                                             <CheckBox
                                                 value={item.value}
-                                                onValueChange={() => handleCheckboxList(item)}
+                                                onValueChange={(value) => handleCheckboxList(id, value, item.id)}
                                             />
                                         </View>
                                     )
