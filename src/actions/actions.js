@@ -1,9 +1,16 @@
 import * as constants from '../constants/constants';
 
 
-export const setSettingsList = list => {
+export function setSettingsList(list) {
     return {
         type: constants.SET_SETTINGS_LIST,
+        list
+    }
+}
+
+export function setPriceList(list) {
+    return {
+        type: constants.SET_PRICE_LIST,
         list
     }
 }

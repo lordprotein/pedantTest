@@ -12,7 +12,20 @@ export const reducer = (state = initState, action) => {
                 ...state,
                 settings: {
                     ...settings,
-                    origin: list
+                    list
+                }
+            }
+        }
+
+        case constants.SET_PRICE_LIST: {
+            const { list } = action;
+            const { price } = state;
+            console.log(price)
+            return {
+                ...state,
+                price: {
+                    ...price,
+                    list
                 }
             }
         }

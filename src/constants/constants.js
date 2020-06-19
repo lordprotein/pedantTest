@@ -1,1 +1,3 @@
 export const SET_SETTINGS_LIST = 'SET_SETTINGS_LIST';
+
+export const SET_PRICE_LIST = 'SET_PRICE_LIST';

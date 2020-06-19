@@ -1,11 +1,14 @@
 class SelectorsSettings {
-    getOriginList = ({ settings }) => {
-        return settings.origin;
+    getList = ({ settings }) => {
+        return settings.list;
     }
+}
 
-    getCurrentList = ({ settings }) => {
-        return settings.current;
+class SelectorsPrice {
+    getList = ({ price }) => {
+        return price.list;
     }
 }
 
 export const selectorsSettings = new SelectorsSettings();
+export const selectorsPrice = new SelectorsPrice();
